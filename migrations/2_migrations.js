@@ -1,4 +1,4 @@
-var ERC223 = artifacts.require("./ERC223_token.sol");
+var ERC223 = artifacts.require("./ERC223BasicToken.sol");
 
 module.exports = function(deployer) {
   deployer.deploy(ERC223);
