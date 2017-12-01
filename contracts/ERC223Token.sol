@@ -20,13 +20,18 @@ contract ERC223Token is ERC223 {
   string public symbol = "ESPT";
   uint8 public decimals = 8;
   uint256 public totalSupply = 100000000000000;
+  address owner;
+//   address public owner = msg.sender;
+//   address owner = msg.sender;
 
 
-
+  function ERC223Token (){
+      owner = msg.sender;
+      balances[owner] = totalSupply;
+  }
   
-  
 
-  // Function to access name of token .
+ // Function to access name of token .
   function name() constant returns (string _name) {
       return name;
   }
@@ -76,9 +81,9 @@ contract ERC223Token is ERC223 {
   // Standard function transfer similar to ERC20 transfer with no _data .
   // Added due to backwards compatibility reasons .
   function transfer(address _to, uint _value) returns (bool success) {
-      
-    //standard function transfer similar to ERC20 transfer with no _data
-    //added due to backwards compatibility reasons
+    //   bytes memory empty;
+    // standard function transfer similar to ERC20 transfer with no _data
+    // added due to backwards compatibility reasons
     bytes memory empty;
     if(isContract(_to)) {
         return transferToContract(_to, _value, empty);
@@ -86,6 +91,13 @@ contract ERC223Token is ERC223 {
     else {
         return transferToAddress(_to, _value, empty);
     }
+    // if(balances[msg.sender]>= _value && balances[_to]+_value >= balances[_to] && _value >0){
+    //          balances[msg.sender] -= _value;
+    //         balances[_to] += _value;
+    //     Transfer(msg.sender, _to, _value, empty);
+    //     return true;
+    //     }
+    //     return false;
 }
 
 //assemble the given address bytecode. If bytecode exists then the _addr is a contract.
