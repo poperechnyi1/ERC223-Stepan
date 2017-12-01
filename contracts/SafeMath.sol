@@ -1,4 +1,4 @@
-pragma solidity ^0.4.15;
+pragma solidity ^0.4.11;
 
 
 /**
@@ -46,10 +46,8 @@ library SafeMath {
   }
 
   function assert(bool assertion) internal {
-    require(!assertion);
-    
-    // if (!assertion) {
-    //   throw;
-    // }
+    if (!assertion) {
+      throw;
+    }
   }
 }
