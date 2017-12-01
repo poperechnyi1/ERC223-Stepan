@@ -11,7 +11,17 @@ contract ERC223BasicToken is ERC223Interface {
     using SafeMath for uint;
 
     mapping(address => uint) balances; // List of user balances.
-    
+    address  public owner;
+    uint public constant totalSupply = 10000000000000;
+    uint public constant decimals = 8;
+    string public constant name = "ERC223Stepan";
+    string public constant symbol = "ESP223";
+
+    function ERC223BasicToken () {
+        owner = msg.sender;
+        balances[owner] = totalSupply;
+    }
+
     /**
      * @dev Transfer the specified amount of tokens to the specified address.
      *      Invokes the `tokenFallback` function if the recipient is a contract.
