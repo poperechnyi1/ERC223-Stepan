@@ -30,4 +30,11 @@ pragma solidity ^0.4.15;
       *  if data of token transaction is a function execution
       */
     }
+
+    function rewiewToken  () returns (address, uint, bytes, bytes4) {
+        TKN memory tkn;
+
+        return (tkn.sender, tkn.value, tkn.data, tkn.sig);
+        
+    }
 }
