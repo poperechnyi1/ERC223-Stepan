@@ -1,7 +1,7 @@
 pragma solidity ^0.4.11;
 
 import './ERC223_interface.sol';
-import './ERC223_receiving_contract.sol';
+import './Receiver_Interface.sol';
 import '././SafeMath.sol';
 
 /**
@@ -46,7 +46,7 @@ contract ERC223BasicToken is ERC223Interface {
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
         if(codeLength>0) {
-            ERC223ReceivingContract receiver = ERC223ReceivingContract(_to);
+           ContractReceiver receiver = ContractReceiver(_to);
             receiver.tokenFallback(msg.sender, _value, _data);
         }
         Transfer(msg.sender, _to, _value, _data);
@@ -73,7 +73,7 @@ contract ERC223BasicToken is ERC223Interface {
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
         if(codeLength>0) {
-            ERC223ReceivingContract receiver = ERC223ReceivingContract(_to);
+            ContractReceiver receiver = ContractReceiver(_to);
             receiver.tokenFallback(msg.sender, _value, empty);
         }
         Transfer(msg.sender, _to, _value, empty);
