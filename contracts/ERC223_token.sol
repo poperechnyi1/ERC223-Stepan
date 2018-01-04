@@ -3,6 +3,7 @@ pragma solidity ^0.4.11;
 import './ERC223_interface.sol';
 import './ERC223_receiving_contract.sol';
 import './SafeMath.sol';
+import './ContractReceiver.sol';
 
 /**
  * @title Reference implementation of the ERC223 standard token.
@@ -10,7 +11,17 @@ import './SafeMath.sol';
 contract ERC223Token is ERC223Interface {
     using SafeMath for uint;
 
+    uint totalSupply = 100000000000;
+    uint decimals = 0;
+    address owner;
+
     mapping(address => uint) balances; // List of user balances.
+
+    function ERC223Token(){
+        owner = msg.sender;
+        balances[owner] = totalSupply;
+    }
+
     
     /**
      * @dev Transfer the specified amount of tokens to the specified address.
@@ -36,7 +47,7 @@ contract ERC223Token is ERC223Interface {
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
         if(codeLength>0) {
-            ERC223ReceivingContract receiver = ERC223ReceivingContract(_to);
+            ContractReceiver receiver = ContractReceiver(_to);
             receiver.tokenFallback(msg.sender, _value, _data);
         }
         Transfer(msg.sender, _to, _value, _data);
@@ -63,7 +74,7 @@ contract ERC223Token is ERC223Interface {
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
         if(codeLength>0) {
-            ERC223ReceivingContract receiver = ERC223ReceivingContract(_to);
+            ContractReceiver receiver = ContractReceiver(_to);
             receiver.tokenFallback(msg.sender, _value, empty);
         }
         Transfer(msg.sender, _to, _value, empty);

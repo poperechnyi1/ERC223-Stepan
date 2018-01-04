@@ -3,6 +3,8 @@ pragma solidity ^0.4.15;
  /*
  * Contract that is working with ERC223 tokens
  */
+
+ import './ERC223_receiving_contract.sol';
  
  contract ContractReceiver {
      
